@@ -1,6 +1,7 @@
 package org.example;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,11 +12,16 @@ public class BloomFilter {
     private List<HashFunction> hashFunctions;
     private List<Boolean> filterBuckets;
 
-    private static BloomFilter instance;
+    private BloomFilter instance;
 
-    public synchronized BloomFilter getInstance() {
+    public synchronized BloomFilter getInstance(List<HashFunction> hashFunctions, int size) {
         if (instance == null) {
-            instance = new BloomFilter();
+            this.instance = new BloomFilter();
+            this.size = size;
+            this.hashFunctions = hashFunctions;
+            this.filterBuckets = new ArrayList<>(this.size);
+        } else if (this.size != size || !this.hashFunctions.equals(hashFunctions)) {
+            throw new IllegalStateException("filter was initialized with different size or hash functions");
         }
         return instance;
     }
