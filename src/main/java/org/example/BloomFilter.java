@@ -33,7 +33,7 @@ public class BloomFilter<T> {
     public boolean isPresent(T key) {
         Set<Integer> keyBuckets = getKeyBuckets(key);
 
-        return keyBuckets.stream().anyMatch(keyBucket -> filterBuckets.get(keyBucket));
+        return keyBuckets.stream().allMatch(keyBucket -> filterBuckets.get(keyBucket));
     }
 
 }
