@@ -1,5 +1,5 @@
 package org.example;
 
-public interface HashFunction<T> {
-    String hash(T key);
+public interface HashFunction {
+    String hash(String key);
 }
